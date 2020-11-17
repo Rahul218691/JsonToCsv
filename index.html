@@ -1,0 +1,56 @@
+<html>
+<head>
+<meta name="description" content="jsontocsv">
+    <title>Demo - Covnert JSON to CSV</title>
+    <script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://github.com/douglascrockford/JSON-js/raw/master/json2.js"></script>
+
+    <script type="text/javascript">
+    function ConvertToCSV(objArray) {
+            var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+            var str = '';
+
+            for (var i = 0; i < array.length; i++) {
+                var line = '';
+                for (var index in array[i]) {
+                    if (line !== '') line += ','
+                    line += array[i][index];
+                }
+
+                str += line + '\r\n';
+            }
+
+            return str;
+        }
+
+        $(document).ready(function () {
+
+
+            var items = [
+                  { name: "Item 1", color: "Green", size: "X-Large" },
+                  { name: "Item 2", color: "Green", size: "X-Large" },
+                  { name: "Item 3", color: "Green", size: "X-Large" }];
+
+
+            var jsonObject = JSON.stringify(items);
+
+ 
+            $('#json').text(jsonObject);
+
+
+            $('#csv').text(ConvertToCSV(jsonObject));
+        });
+    </script>
+</head>
+<body>
+    <h1>
+        JSON</h1>
+    <pre id="json"></pre>
+    <h1>
+        CSV</h1>
+    <pre id="csv"></pre>
+</body>
+</html>
